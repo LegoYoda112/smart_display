@@ -1,0 +1,114 @@
+:root {
+    --bg-color: #051425;
+}
+
+body{
+    background: var(--bg-color);
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+
+p{
+    font-family: 'Roboto', sans-serif;
+    margin: 5px;
+}
+
+.today-item{
+    color: var(--bg-color);
+
+    font-weight: 500;
+    font-size: 32;
+}
+
+.tomorrow-item{
+    color: #FFFFFF;
+
+    font-weight: 300;
+    font-size: 32;
+}
+
+h1{
+    margin: 5px;
+    font-family: 'Roboto', sans-serif;
+
+    font-weight: bold;
+    font-size: 70px;
+}
+
+#today-title{
+    color: var(--bg-color);
+}
+
+#tomorrow-title{
+    color: #FFFFFF;
+
+    font-weight: 500;
+    font-size: 32px;
+}
+
+
+h2{
+    margin: 5px;
+    font-family: 'Roboto', sans-serif;
+
+    font-weight: 300;
+    font-size: 38px;
+}
+
+#tomorrow-weather{
+    color: #FFFFFF;
+
+    font-weight: 300;
+    font-size: 24px;
+}
+
+
+.box{
+    padding: 20px;
+    margin: 10px;
+
+    border-radius: 8px;
+}
+
+#today{
+    width: 65%;
+    background: linear-gradient(110deg, #FF8B49 4.57%, #9CF9FF 60.94%);
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#time{
+    flex: 1;
+    background: #9CF9FF;
+}
+
+#trash{
+    flex: 1;
+    background: #FF8B49;
+}
+
+#tomorrow{
+    width: 65%;
+
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.dayinfo{
+    width: 35%;
+    /* border: 2px solid #FFFFFF; */
+}
+
+
+.day-items{
+    flex-grow: 1;
+    text-align: right;
+    margin-top: 20px;
+
+    /* border: 2px solid #FFFFFF; */
+}
