@@ -18,14 +18,14 @@ p{
     color: var(--bg-color);
 
     font-weight: 500;
-    font-size: 32;
+    font-size: 38;
 }
 
 .tomorrow-item{
     color: #FFFFFF;
 
     font-weight: 300;
-    font-size: 32;
+    font-size: 34;
 }
 
 h1{
@@ -35,7 +35,7 @@ h1{
     color: var(--bg-color);
 
     font-weight: bold;
-    font-size: 70px;
+    font-size: 74px;
 }
 
 #today-title{
@@ -46,7 +46,7 @@ h1{
     color: #FFFFFF;
 
     font-weight: 500;
-    font-size: 32px;
+    font-size: 36px;
 }
 
 
@@ -55,14 +55,14 @@ h2{
     font-family: 'Roboto', sans-serif;
 
     font-weight: 300;
-    font-size: 38px;
+    font-size: 42px;
 }
 
 #tomorrow-weather{
     color: #FFFFFF;
 
     font-weight: 300;
-    font-size: 24px;
+    font-size: 32px;
 }
 
 
@@ -75,7 +75,7 @@ h2{
 
 #today{
     width: 65%;
-    background: linear-gradient(110deg, #FF8B49 4.57%, #9CF9FF 60.94%);
+    background: linear-gradient(110deg, #ffad50 4.57%, #9CF9FF 60.94%);
 
     display: flex;
     flex-wrap: wrap;
