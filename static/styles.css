@@ -32,6 +32,8 @@ h1{
     margin: 5px;
     font-family: 'Roboto', sans-serif;
 
+    color: var(--bg-color);
+
     font-weight: bold;
     font-size: 70px;
 }
@@ -86,7 +88,15 @@ h2{
 
 #trash{
     flex: 1;
+}
+
+.takeout{
     background: #FF8B49;
+}
+
+.notakeout{
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
 }
 
 #tomorrow{
@@ -100,7 +110,7 @@ h2{
 }
 
 .dayinfo{
-    width: 35%;
+    width: 30%;
     /* border: 2px solid #FFFFFF; */
 }
 
