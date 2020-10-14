@@ -1,8 +1,8 @@
-
+let weatherurl;
 
 function startTime(){
     var today = new Date();
-    var h = today.getHours() % 13;
+    var h = today.getHours() % 12;
     var m = today.getMinutes();
     m = padTime(m);
     document.getElementById('time-title').innerHTML =
@@ -24,7 +24,13 @@ function padTime(i) {
 }
 
 async function updateWeather(){
-    let response = await fetch('');
+    if(!weatherurl){
+        console.log("Updating weather api key");
+        weatherurl = await fetch('/weatherkey.txt');
+        weatherurl = await weatherurl.text();
+    }
+
+    let response = await fetch(weatherurl);
     let data = await response.json();
 
     let today_weather = data.current.weather[0].main;
@@ -95,7 +101,7 @@ const datesAreOnSameDay = (first, second) =>
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
 
-window.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", async function () {
     console.log("Starting...");
     startTime();
     updateWeather();
