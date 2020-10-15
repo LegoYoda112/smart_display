@@ -1,19 +1,27 @@
+// Holds the weather api link
 let weatherurl;
 
 function startTime(){
+    // Gets today's date
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
-    m = padTime(m);
-    document.getElementById('time-title').innerHTML =
-    h + ":" + m;
+    m = padTime(m); // Pads the hours for times less than 10
 
+    // Formats time and sets html element
+    document.getElementById('time-title').innerHTML =
+    h + ":" + m; 
+
+    // Extracts day
     var day = today.getDate();
-    var month = today.getMonth() + 1;5
+    var month = today.getMonth() + 1;
     var year = today.getFullYear();
+
+    // Formats date and sets htmnl element
     document.getElementById('date-title').innerHTML =
     day + "/" + month + "/" + year;
 
+    // Sets update loop (ever 0.5 secs)
     var t = setTimeout(startTime, 500);
     console.log("updated time");
 }
@@ -23,28 +31,35 @@ function padTime(i) {
     return i;
 }
 
+// Function for updating the weather
 async function updateWeather(){
-    if(!weatherurl){
+    if(!weatherurl){ // If the weatherurl hasn't been set yet, retrieve it.
         console.log("Updating weather api key");
         weatherurl = await fetch('/weatherkey.txt');
         weatherurl = await weatherurl.text();
     }
 
+    // Gets the url and then converts the response to JSON
     let response = await fetch(weatherurl);
     let data = await response.json();
-
+    
+    // Grabs today's weather
     let today_weather = data.current.weather[0].main;
     let today_temp = Math.round(data.current.temp);
 
+    // Sets today's weather
     document.getElementById("today-weather").innerHTML = 
-    today_weather + ". " + today_temp + "°";
+    today_weather + " " + today_temp + "°";
 
+    // Grabs tomorrow's weather
     let tomorrow_weather = data.daily[1].weather[0].main;
     let tomorrow_temp = Math.round(data.daily[1].temp.day);
 
+    // Sets tomorrow's weather
     document.getElementById("tomorrow-weather").innerHTML = 
-    tomorrow_weather + ". " + tomorrow_temp + "°";
+    tomorrow_weather + " " + tomorrow_temp + "°";
 
+    // Starts repeat. (every 10 mins)
     var t = setTimeout(updateWeather, 600000);
     console.log("updated weather");
 }
@@ -68,21 +83,25 @@ async function updateCalender(){
     for (i = 0; i < data.length; i++){
 
         // Get event start date
-        date = new Date(data[i].start.date);
+        console.log(data[i])
+        date = new Date(data[i].start.dateTime);
+        console.log(date);
 
         // Make new item
         let newItem = document.createElement("p");
         eventName = data[i].summary;
         newItem.innerHTML = eventName;
 
-        if(datesAreOnSameDay(today, date)){
-            // Sets class to be today and appends to correct div
-            if(eventName == "Bins"){
-                console.log("Stuff lmao");
-                trash.className = "box takeout";
-            }else{
-                newItem.className = "today-item";
-                todayDiv.appendChild(newItem);
+        if(daysAreSame(today, date)){
+            if(datetimeHasPassed(today, date)){
+                // Sets class to be today and appends to correct div
+                if(eventName == "Bins"){
+                    console.log("Stuff lmao");
+                    trash.className = "box takeout";
+                }else{
+                    newItem.className = "today-item";
+                    todayDiv.appendChild(newItem);
+                }
             }
 
         }else{
@@ -96,15 +115,20 @@ async function updateCalender(){
     console.log("updated calender");
 }
 
-const datesAreOnSameDay = (first, second) =>
+// Function to check if dateTimes are on the same day
+const daysAreSame = (first, second) =>
     first.getFullYear() === second.getFullYear() &&
     first.getMonth() === second.getMonth() &&
     first.getDate() === second.getDate();
 
-window.addEventListener("DOMContentLoaded", async function () {
+// Checks to see if a datetime has passed
+const datetimeHasPassed = (today, datetime) => today > datetime;
+
+// When page content loads, start up all updater functions
+window.addEventListener("DOMContentLoaded", function () {
     console.log("Starting...");
     startTime();
-    updateWeather();
+    // updateWeather();
     updateCalender();
 });
 
