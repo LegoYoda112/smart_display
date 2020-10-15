@@ -45,7 +45,7 @@ async function updateWeather(){
     document.getElementById("tomorrow-weather").innerHTML = 
     tomorrow_weather + ". " + tomorrow_temp + "°";
 
-    var t = setTimeout(updateWeather, 60000);
+    var t = setTimeout(updateWeather, 600000);
     console.log("updated weather");
 }
 
