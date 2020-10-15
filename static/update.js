@@ -2,7 +2,7 @@ let weatherurl;
 
 function startTime(){
     var today = new Date();
-    var h = today.getHours() % 12;
+    var h = today.getHours();
     var m = today.getMinutes();
     m = padTime(m);
     document.getElementById('time-title').innerHTML =
