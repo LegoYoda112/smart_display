@@ -85,6 +85,9 @@ async function updateCalender(){
         // Get event start date
         console.log(data[i])
         date = new Date(data[i].start.dateTime);
+        if(date == "Invalid Date"){
+            date = new Date(data[i].start.date);
+        }
         console.log(date);
 
         // Make new item
@@ -128,7 +131,7 @@ const datetimeHasPassed = (today, datetime) => today > datetime;
 window.addEventListener("DOMContentLoaded", function () {
     console.log("Starting...");
     startTime();
-    // updateWeather();
+    updateWeather();
     updateCalender();
 });
 
