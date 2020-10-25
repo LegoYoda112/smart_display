@@ -125,6 +125,7 @@ h2{
 
 .day-items{
     flex-grow: 1;
+    flex-shrink: 1;
     text-align: right;
     margin-top: 20px;
 

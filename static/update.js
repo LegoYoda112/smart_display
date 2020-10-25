@@ -1,19 +1,27 @@
+// Holds the weather api link
 let weatherurl;
 
 function startTime(){
+    // Gets today's date
     var today = new Date();
     var h = today.getHours();
     var m = today.getMinutes();
-    m = padTime(m);
-    document.getElementById('time-title').innerHTML =
-    h + ":" + m;
+    m = padTime(m); // Pads the hours for times less than 10
 
+    // Formats time and sets html element
+    document.getElementById('time-title').innerHTML =
+    h + ":" + m; 
+
+    // Extracts day
     var day = today.getDate();
-    var month = today.getMonth() + 1;5
+    var month = today.getMonth() + 1;
     var year = today.getFullYear();
+
+    // Formats date and sets htmnl element
     document.getElementById('date-title').innerHTML =
     day + "/" + month + "/" + year;
 
+    // Sets update loop (ever 0.5 secs)
     var t = setTimeout(startTime, 500);
     console.log("updated time");
 }
@@ -23,28 +31,35 @@ function padTime(i) {
     return i;
 }
 
+// Function for updating the weather
 async function updateWeather(){
-    if(!weatherurl){
+    if(!weatherurl){ // If the weatherurl hasn't been set yet, retrieve it.
         console.log("Updating weather api key");
         weatherurl = await fetch('/weatherkey.txt');
         weatherurl = await weatherurl.text();
     }
 
+    // Gets the url and then converts the response to JSON
     let response = await fetch(weatherurl);
     let data = await response.json();
-
+    
+    // Grabs today's weather
     let today_weather = data.current.weather[0].main;
     let today_temp = Math.round(data.current.temp);
 
+    // Sets today's weather
     document.getElementById("today-weather").innerHTML = 
-    today_weather + ". " + today_temp + "°";
+    today_weather + " " + today_temp + "°";
 
+    // Grabs tomorrow's weather
     let tomorrow_weather = data.daily[1].weather[0].main;
     let tomorrow_temp = Math.round(data.daily[1].temp.day);
 
+    // Sets tomorrow's weather
     document.getElementById("tomorrow-weather").innerHTML = 
-    tomorrow_weather + ". " + tomorrow_temp + "°";
+    tomorrow_weather + " " + tomorrow_temp + "°";
 
+    // Starts repeat. (every 10 mins)
     var t = setTimeout(updateWeather, 600000);
     console.log("updated weather");
 }
@@ -110,7 +125,11 @@ const eventIsToday = (today, startD) =>
     today.getMonth() === startD.getMonth() &&
     today.getDate() === startD.getDate();
 
-window.addEventListener("DOMContentLoaded", async function () {
+// Checks to see if a datetime has passed
+const datetimeHasPassed = (today, datetime) => today > datetime;
+
+// When page content loads, start up all updater functions
+window.addEventListener("DOMContentLoaded", function () {
     console.log("Starting...");
     startTime();
     updateWeather();
