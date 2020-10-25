@@ -82,29 +82,23 @@ async function updateCalender(){
 
     for (i = 0; i < data.length; i++){
 
-        // Get event start date
-        console.log(data[i])
-        date = new Date(data[i].start.dateTime);
-        if(date == "Invalid Date"){
-            date = new Date(data[i].start.date);
-        }
-        console.log(date);
+        // Get event start and end date
+        startDate = new Date(data[i].start.date);
+        endDate = new Date(data[i].end.date);
 
         // Make new item
         let newItem = document.createElement("p");
         eventName = data[i].summary;
         newItem.innerHTML = eventName;
 
-        if(daysAreSame(today, date)){
-            if(datetimeHasPassed(today, date)){
-                // Sets class to be today and appends to correct div
-                if(eventName == "Bins"){
-                    console.log("Stuff lmao");
-                    trash.className = "box takeout";
-                }else{
-                    newItem.className = "today-item";
-                    todayDiv.appendChild(newItem);
-                }
+        if(eventIsToday(today, startDate) || eventIsOccuring(today, startDate, endDate)){
+            // Sets class to be today and appends to correct div
+            if(eventName == "Bins"){
+                console.log("Stuff lmao");
+                trash.className = "box takeout";
+            }else{
+                newItem.className = "today-item";
+                todayDiv.appendChild(newItem);
             }
 
         }else{
@@ -118,11 +112,18 @@ async function updateCalender(){
     console.log("updated calender");
 }
 
-// Function to check if dateTimes are on the same day
-const daysAreSame = (first, second) =>
-    first.getFullYear() === second.getFullYear() &&
-    first.getMonth() === second.getMonth() &&
-    first.getDate() === second.getDate();
+function eventIsOccuring(today, startD, endD){
+    if(startD <= today && today <= endD){
+        return true;
+    }else{
+        return false;
+    };
+}
+
+const eventIsToday = (today, startD) =>
+    today.getFullYear() === startD.getFullYear() &&
+    today.getMonth() === startD.getMonth() &&
+    today.getDate() === startD.getDate();
 
 // Checks to see if a datetime has passed
 const datetimeHasPassed = (today, datetime) => today > datetime;
