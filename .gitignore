@@ -4,3 +4,6 @@ credentials.json
 static/weatherkey.txt
 run-screen.sh
 node_modules/
+package-lock.json
+package.json
+.DS_Store
