@@ -67,15 +67,16 @@ async function updateCalender(){
 
     for (i = 0; i < data.length; i++){
 
-        // Get event start date
-        date = new Date(data[i].start.date);
+        // Get event start and end date
+        startDate = new Date(data[i].start.date);
+        endDate = new Date(data[i].end.date);
 
         // Make new item
         let newItem = document.createElement("p");
         eventName = data[i].summary;
         newItem.innerHTML = eventName;
 
-        if(datesAreOnSameDay(today, date)){
+        if(eventIsToday(today, startDate) || eventIsOccuring(today, startDate, endDate)){
             // Sets class to be today and appends to correct div
             if(eventName == "Bins"){
                 console.log("Stuff lmao");
@@ -96,10 +97,18 @@ async function updateCalender(){
     console.log("updated calender");
 }
 
-const datesAreOnSameDay = (first, second) =>
-    first.getFullYear() === second.getFullYear() &&
-    first.getMonth() === second.getMonth() &&
-    first.getDate() === second.getDate();
+function eventIsOccuring(today, startD, endD){
+    if(startD <= today && today <= endD){
+        return true;
+    }else{
+        return false;
+    };
+}
+
+const eventIsToday = (today, startD) =>
+    today.getFullYear() === startD.getFullYear() &&
+    today.getMonth() === startD.getMonth() &&
+    today.getDate() === startD.getDate();
 
 window.addEventListener("DOMContentLoaded", async function () {
     console.log("Starting...");
