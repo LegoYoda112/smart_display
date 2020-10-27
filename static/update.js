@@ -64,8 +64,8 @@ async function updateWeather(){
     console.log("updated weather");
 }
 
-async function updateCalender(){
-    // Gets calender items for the next two days
+async function updateCalendar(){
+    // Gets calendar items for the next two days
     let response = await fetch("/cal");
     let data = await response.json();
 
@@ -82,25 +82,36 @@ async function updateCalender(){
 
     for (i = 0; i < data.length; i++){
 
-        // Get event start and end date
-        startDate = new Date(data[i].start.date);
-        endDate = new Date(data[i].end.date);
-
         // Make new item
         let newItem = document.createElement("p");
         eventName = data[i].summary;
         newItem.innerHTML = eventName;
 
+        // Get event start and end date
+        if(eventName === 'Bins'){
+            startDate = new Date(data[i].start.dateTime);
+            endDate = new Date(data[i].end.dateTime);
+        }else{
+            startDate = new Date(data[i].start.date);
+            endDate = new Date(data[i].end.date);
+        }
+
+        // Debugging lines, uncomment if needed
+        /* console.log(eventName);
+        console.log(data[i]);
+        console.log('eventIsToday: ', eventIsToday(today, startDate));
+        console.log('eventIsOccuring: ', eventIsOccuring(today, startDate, endDate)); */
+
         if(eventIsToday(today, startDate) || eventIsOccuring(today, startDate, endDate)){
             // Sets class to be today and appends to correct div
-            if(eventName == "Bins"){
-                console.log("Stuff lmao");
+            if(eventName == "Bins" && eventIsOccuring(today, startDate, endDate)){
                 trash.className = "box takeout";
+                newItem.className = "today-item";
+                todayDiv.appendChild(newItem);
             }else{
                 newItem.className = "today-item";
                 todayDiv.appendChild(newItem);
             }
-
         }else{
             // Sets class to be tomorrow and appends to correct div
             newItem.className = "tomorrow-item";
@@ -108,8 +119,8 @@ async function updateCalender(){
         }
     }
 
-    var t = setTimeout(updateCalender, 60000);
-    console.log("updated calender");
+    var t = setTimeout(updateCalendar, 60000);
+    console.log("updated calendar");
 }
 
 function eventIsOccuring(today, startD, endD){
@@ -133,7 +144,7 @@ window.addEventListener("DOMContentLoaded", function () {
     console.log("Starting...");
     startTime();
     updateWeather();
-    updateCalender();
+    updateCalendar();
 });
 
 
