@@ -83,7 +83,7 @@ h2{
 
 #today{
     width: 65%;
-    background-image: linear-gradient(110deg, #cc1c1f 35%, #23be2b 45%);
+    background-image: linear-gradient(110deg, #da1c1f 35%, #08b911 36%);
     /* background: linear-gradient(110deg, #0cb04a 5%, #a92921 40%);
     background: linear-gradient(110deg, #ffad50 4.57%, #9CF9FF 60.94%); */
 
@@ -93,7 +93,7 @@ h2{
 
 #time{
     flex: 1;
-    background: #23be2b;
+    background: #08b911;
     /* background: #9CF9FF; */
 }
 
