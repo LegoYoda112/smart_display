@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 // Holds the weather api link
 let weatherurl;
@@ -126,10 +125,12 @@ async function updateCalendar(){
 }
 
 async function updateBreakerCount() {
-    const {breakerCount, maxBreakerCount} = fs.readFile('breaker.json', (err, content) => {
-        if (err) return console.log('Error loading breaker count file:', err);
-        return JSON.parse(content);
-      });
+    // const {breakerCount, maxBreakerCount} = fs.readFile('breaker.json', (err, content) => {
+    //     if (err) return console.log('Error loading breaker count file:', err);
+    //     return JSON.parse(content);
+    //   });
+    breakerData = await fetch('/breaker.json');
+    const {breakerCount, maxBreakerCount} = await breakerData.json();
     document.getElementById('breaker-count').innerHTML = breakerCount;
 }
 
