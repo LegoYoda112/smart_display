@@ -132,6 +132,9 @@ async function updateBreakerCount() {
     breakerData = await fetch('/breaker.json');
     const {breakerCount, maxBreakerCount} = await breakerData.json();
     document.getElementById('breaker-count').innerHTML = breakerCount;
+    var t = setTimeout(updateBreakerCount, 60000);
+    console.log("updated breaker")
+    console.log(breakerData)
 }
 
 async function incrBreakerCount() {
