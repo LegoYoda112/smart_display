@@ -17,7 +17,7 @@ app.use("/cal/", function (req, res) {
     calender.getCalEvents(res);
 });
 
-app.post("/breaker_update/", function (req, res) {
+app.use("/breaker_update/", function (req, res) {
     console.log("Updating Breaker");
     // res.send("Updating Breaker")
     const data = fs.readFile('/breaker.json', (err, content) => {
