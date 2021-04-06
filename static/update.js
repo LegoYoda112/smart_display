@@ -130,8 +130,6 @@ async function updateBreakerCount() {
         if (!response.ok) {
             throw new Error("HTTP error " + response.status);
         }
-        console.log("Response: " + response)
-        console.log("Response JSON: " + response.json())
         return response.json()
     }).then(json => {
         const {breakerCount, maxBreakerCount} = json;
@@ -142,15 +140,8 @@ async function updateBreakerCount() {
     
 }
 
-async function incrBreakerCount() {
-    await fetch('/breaker_update', {
-        method: 'POST',
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({'increment': 1})
-    })
+async function resetBreakerCount() {
+    await fetch('/reset_breaker');
     updateBreakerCount();
 }
 
@@ -176,7 +167,7 @@ window.addEventListener("DOMContentLoaded", function () {
     startTime();
     updateWeather();
     updateCalendar();
-    incrBreakerCount();
+    resetBreakerCount();
 });
 
 

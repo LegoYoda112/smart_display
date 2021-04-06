@@ -11,33 +11,29 @@ app.use("/", express.static("static"));
 app.listen(port, function () {
     console.log("Listening on port " + port);
     console.log("http://localhost:" + port);
-    // res.send("Updating Breaker")
-    // fs.readFile('breaker.json', 'utf-8', (err, content) => {
-    //     if (err) return console.log('Error loading breaker file:', err);
-    //     let {breakerCount, maxBreakerCount} = JSON.parse(content);
-    //     // breakerCount += 1;
-    //     // maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
-    //     fs.writeFile('breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}));
-    //     console.log(breakerCount + " : " + maxBreakerCount);
-    // });
-    // res.send(data);
-    // const {increment} = JSON.parse(req.body);
-    // // res.send(increment)
 });
 
 app.use("/cal/", function (req, res) {
     calender.getCalEvents(res);
 });
 
+let lastCheckDate = new Date().getDate();
+
 app.get("/breaker", function (req, res) {
-    let breaker = JSON.parse(fs.readFileSync('breaker.json', 'utf-8'));
-    res.send(breaker);
+    let {breakerCount, maxBreakerCount} = JSON.parse(fs.readFileSync('breaker.json', 'utf-8'));
+    todayDate = new Date().getDate();
+    if (Math.abs(todayDate - lastCheckDate) > 0) {
+        breakerCount += 1;
+        maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
+    }
+    lastCheckDate = todayDate;
+    fs.writeFile('breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}), function (err) {});
+    res.send({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount});
 });
 
-app.get("/update_breaker", function (req, res) {
+app.get("/reset_breaker", function (req, res) {
     let {breakerCount, maxBreakerCount} = JSON.parse(fs.readFileSync('breaker.json', 'utf-8'));
-    breakerCount += 1;
-    maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
+    breakerCount = 0;
     fs.writeFile('breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}), function (err) {});
     res.send(JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}));
 });
