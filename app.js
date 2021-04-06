@@ -5,8 +5,6 @@ const fs = require('fs');
 const port = 8080;
 const app = express();
 
-let breaker = require('./breaker');
-
 app.use("/", express.static("static"));
 
 // Start server
@@ -32,6 +30,7 @@ app.use("/cal/", function (req, res) {
 });
 
 app.get("/breaker", function (req, res) {
+    let breaker = JSON.parse(fs.readFileSync('breaker.json', 'utf-8'));
     res.send(breaker);
 });
 
