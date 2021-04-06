@@ -5,7 +5,7 @@ const fs = require('fs');
 const port = 8080;
 const app = express();
 
-const breaker = require('./breaker');
+let breaker = require('./breaker');
 
 app.use("/", express.static("static"));
 
@@ -33,4 +33,10 @@ app.use("/cal/", function (req, res) {
 
 app.get("/breaker", function (req, res) {
     res.send(breaker);
+});
+
+app.post("/update_breaker", function (req, res) {
+    let breakerCount = breaker.breakerCount + 1;
+    let maxBreakerCount = Math.max(breakerCount, breaker.maxBreakerCount);
+    res.send(breakerCount, maxBreakerCount);
 });

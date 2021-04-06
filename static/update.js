@@ -126,10 +126,12 @@ async function updateCalendar(){
 
 async function updateBreakerCount() {
     console.log("updating breaker")
-    breakerData = await fetch('/breaker.json').then( response => {
+    breakerData = await fetch('/breaker').then( response => {
         if (!response.ok) {
             throw new Error("HTTP error " + response.status);
         }
+        console.log("Response: " + response)
+        console.log("Response JSON: " + response.json())
         return response.json()
     }).then(json => {
         const {breakerCount, maxBreakerCount} = json;
