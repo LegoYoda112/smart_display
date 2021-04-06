@@ -36,7 +36,7 @@ app.get("/breaker", function (req, res) {
 
 app.get("/update_breaker", function (req, res) {
     let {breakerCount, maxBreakerCount} = JSON.parse(fs.readFileSync('breaker.json', 'utf-8'));
-    breakerCount =+ 1;
+    breakerCount += 1;
     maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
     fs.writeFile('breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}), function (err) {});
     res.send(JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}));
