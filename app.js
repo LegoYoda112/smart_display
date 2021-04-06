@@ -19,16 +19,14 @@ app.use("/cal/", function (req, res) {
 
 app.post("/breaker_update", function (req, res) {
     console.log("Updating Breaker")
-    res.send("Updating Breaker")
-    // const {breakerCount, maxBreakerCount} = {"b":0,"a":0};
-    // const res = fs.readFile('/breaker.json', (err, content) => {
-    //     if (err) return console.log('Error loading breaker file:', err);
-    //     return JSON.parse(content);
-    // });
-    // // console.log(res);
-    // const {increment} = JSON.parse(req.body);
-    // console.log(increment)
-    // breakerCount += increment;
-    // maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
-    // fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
+    // res.send("Updating Breaker")
+    const {breakerCount, maxBreakerCount} = fs.readFile('/breaker.json', (err, content) => {
+        if (err) return res.send('Error loading breaker file:', err);
+        return JSON.parse(content);
+    });
+    const {increment} = JSON.parse(req.body);
+    // res.send(increment)
+    breakerCount += increment;
+    maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
+    fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
 });
