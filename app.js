@@ -12,8 +12,8 @@ app.listen(port, function () {
     console.log("Listening on port " + port);
     console.log("http://localhost:" + port);
     // res.send("Updating Breaker")
-    const {breakerCount, maxBreakerCount} = fs.readFile('breaker.json', (err, content) => {
-        if (err) return res.send('Error loading breaker file:', err);
+    const {breakerCount, maxBreakerCount} = fs.readFile('/breaker.json', (err, content) => {
+        if (err) return console.log('Error loading breaker file:', err);
         return JSON.parse(content);
     });
     // res.send(data);
@@ -21,7 +21,7 @@ app.listen(port, function () {
     // // res.send(increment)
     breakerCount += 1;
     maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
-    fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
+    fs.writeFile('/breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}));
     console.log(breakerCount + " : " + maxBreakerCount);
 });
 
