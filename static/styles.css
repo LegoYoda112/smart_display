@@ -61,6 +61,12 @@ h2{
     font-size: 42px;
 }
 
+h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 200;
+    font-size: 32px;
+}
+
 #tomorrow-weather{
     color: #FFFFFF;
 
@@ -144,4 +150,14 @@ h2{
 
 #date-title{
     color: black;
+}
+
+.breaker {
+    color: white;
+}
+
+#breaker-count {
+    color: white;
+    justify-content: center;
+    font-weight: bold;
 }
