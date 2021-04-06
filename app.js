@@ -18,10 +18,12 @@ app.use("/cal/", function (req, res) {
 });
 
 app.use("/breaker_update", function (req, res) {
-    const {breakerCount, maxBreakerCount} = fs.readFile('/breaker.json', (err, content) => {
+    const {breakerCount, maxBreakerCount} = {"b":0,"a":0};
+    const res = fs.readFile('/breaker.json', (err, content) => {
         if (err) return console.log('Error loading breaker file:', err);
         return JSON.parse(content);
     });
+    console.log(res);
     const {increment} = JSON.parse(req.body);
     breakerCount += increment;
     maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
