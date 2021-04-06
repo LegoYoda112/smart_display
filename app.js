@@ -24,9 +24,10 @@ app.post("/breaker_update", function (req, res) {
         if (err) return res.send('Error loading breaker file:', err);
         return JSON.parse(content);
     });
-    const {increment} = JSON.parse(req.body);
-    // res.send(increment)
-    breakerCount += increment;
-    maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
-    fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
+    res.send(breakerCount)
+    // const {increment} = JSON.parse(req.body);
+    // // res.send(increment)
+    // breakerCount += increment;
+    // maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
+    // fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
 });
