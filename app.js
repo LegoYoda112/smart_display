@@ -19,7 +19,7 @@ app.listen(port, function () {
     // res.send(data);
     // const {increment} = JSON.parse(req.body);
     // // res.send(increment)
-    breakerCount += increment;
+    breakerCount += 1;
     maxBreakerCount = Math.max(breakerCount, maxBreakerCount);
     fs.writeFile('/breaker.json', {'breakerCount': breakerCount, 'maxBreakerCount': maxBreakerCount});
     console.log(breakerCount + " : " + maxBreakerCount);
