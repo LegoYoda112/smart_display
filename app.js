@@ -12,7 +12,7 @@ app.listen(port, function () {
     console.log("Listening on port " + port);
     console.log("http://localhost:" + port);
     // res.send("Updating Breaker")
-    const {breakerCount, maxBreakerCount} = fs.readFile('/breaker.json', (err, content) => {
+    const {breakerCount, maxBreakerCount} = fs.readFile('breaker.json', (err, content) => {
         if (err) return res.send('Error loading breaker file:', err);
         return JSON.parse(content);
     });
