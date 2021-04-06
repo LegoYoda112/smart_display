@@ -1,3 +1,4 @@
+const { response } = require("express");
 
 // Holds the weather api link
 let weatherurl;
@@ -129,12 +130,20 @@ async function updateBreakerCount() {
     //     if (err) return console.log('Error loading breaker count file:', err);
     //     return JSON.parse(content);
     //   });
-    breakerData = await fetch('/breaker.json');
-    const {breakerCount, maxBreakerCount} = await breakerData.json();
-    document.getElementById('breaker-count').innerHTML = breakerCount;
+    console.log("updating breaker")
+    breakerData = await fetch('/breaker.json').then( response => {
+        if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
+        }
+        return response.json()
+    }).then(json => {
+        const {breakerCount, maxBreakerCount} = json;
+        document.getElementById('breaker-count').innerHTML = breakerCount;
+        console.log(json)
+    });
+    // co1nst {breakerCount, maxBreakerCount} = await breakerData.json();
     var t = setTimeout(updateBreakerCount, 60000);
-    console.log("updated breaker")
-    console.log(breakerData)
+    
 }
 
 async function incrBreakerCount() {
