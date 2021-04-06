@@ -17,14 +17,14 @@ app.use("/cal/", function (req, res) {
     calender.getCalEvents(res);
 });
 
-app.post("/breaker_update", function (req, res) {
-    console.log("Updating Breaker")
+app.post("/breaker_update/", function (req, res) {
+    console.log("Updating Breaker");
     // res.send("Updating Breaker")
-    const data= fs.readFile('/breaker.json', (err, content) => {
+    const data = fs.readFile('/breaker.json', (err, content) => {
         if (err) return res.send('Error loading breaker file:', err);
         return JSON.parse(content);
     });
-    res.send(data)
+    res.send(data);
     // const {increment} = JSON.parse(req.body);
     // // res.send(increment)
     // breakerCount += increment;
