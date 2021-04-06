@@ -35,8 +35,8 @@ app.get("/breaker", function (req, res) {
     res.send(breaker);
 });
 
-app.use("/update_breaker", function (req, res) {
-    let breakerCount = breaker.breakerCount + req.body.increment;
+app.get("/update_breaker", function (req, res) {
+    let breakerCount = breaker.breakerCount + 1;
     let maxBreakerCount = Math.max(breakerCount, breaker.maxBreakerCount);
     res.send(breakerCount, maxBreakerCount);
 });
