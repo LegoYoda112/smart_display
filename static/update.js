@@ -140,6 +140,8 @@ async function updateBreakerCount() {
         const {breakerCount, maxBreakerCount} = json;
         document.getElementById('breaker-count').innerHTML = breakerCount;
         console.log(json)
+        console.log(breakerCount)
+        console.log(maxBreakerCount)
     });
     // co1nst {breakerCount, maxBreakerCount} = await breakerData.json();
     var t = setTimeout(updateBreakerCount, 60000);
