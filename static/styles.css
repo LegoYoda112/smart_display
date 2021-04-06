@@ -149,3 +149,8 @@ h2{
 .breaker {
     color: white;
 }
+
+#breaker-count {
+    color: white;
+    justify-content: center;
+}

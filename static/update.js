@@ -125,10 +125,6 @@ async function updateCalendar(){
 }
 
 async function updateBreakerCount() {
-    // const {breakerCount, maxBreakerCount} = fs.readFile('breaker.json', (err, content) => {
-    //     if (err) return console.log('Error loading breaker count file:', err);
-    //     return JSON.parse(content);
-    //   });
     console.log("updating breaker")
     breakerData = await fetch('/breaker.json').then( response => {
         if (!response.ok) {
@@ -138,11 +134,7 @@ async function updateBreakerCount() {
     }).then(json => {
         const {breakerCount, maxBreakerCount} = json;
         document.getElementById('breaker-count').innerHTML = breakerCount;
-        console.log(json)
-        console.log(breakerCount)
-        console.log(maxBreakerCount)
     });
-    // co1nst {breakerCount, maxBreakerCount} = await breakerData.json();
     var t = setTimeout(updateBreakerCount, 60000);
     
 }
