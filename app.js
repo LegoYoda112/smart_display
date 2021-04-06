@@ -35,7 +35,7 @@ app.get("/breaker", function (req, res) {
     res.send(breaker);
 });
 
-app.post("/update_breaker", function (req, res) {
+app.use("/update_breaker", function (req, res) {
     let breakerCount = breaker.breakerCount + req.body.increment;
     let maxBreakerCount = Math.max(breakerCount, breaker.maxBreakerCount);
     res.send(breakerCount, maxBreakerCount);
