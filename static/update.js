@@ -134,12 +134,21 @@ async function updateBreakerCount() {
     }).then(json => {
         const {breakerCount, maxBreakerCount} = json;
         document.getElementById('breaker-count').innerHTML = breakerCount;
+        document.getElementById('breaker-record').innerHTML = 'All time record: ' + maxBreakerCount;
     });
     var t = setTimeout(updateBreakerCount, 60000);
     
 }
 
 async function incrBreakerCount() {
+    await fetch('/breaker_update', {
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'increment': 1})
+    })
     updateBreakerCount();
 }
 
