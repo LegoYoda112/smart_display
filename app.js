@@ -40,5 +40,5 @@ app.get("/update_breaker", function (req, res) {
     let maxBreakerCount = Math.max(breakerCount, breaker.maxBreakerCount);
     fs.writeFile('breaker.json', JSON.stringify({breakerCount: breakerCount, maxBreakerCount: maxBreakerCount}), function (err) {});
     breaker = require('./breaker');
-    res.send(breakerCount + " : " + maxBreakerCount);
+    res.send(breaker);
 });
