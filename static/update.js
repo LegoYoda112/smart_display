@@ -1,4 +1,3 @@
-const { response } = require("express");
 
 // Holds the weather api link
 let weatherurl;
