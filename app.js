@@ -17,8 +17,9 @@ app.use("/cal/", function (req, res) {
     calender.getCalEvents(res);
 });
 
-app.use("/breaker_update", function (req, res) {
+app.post("/breaker_update", function (req, res) {
     console.log("Updating Breaker")
+    res.send("Updating Breaker")
     // const {breakerCount, maxBreakerCount} = {"b":0,"a":0};
     // const res = fs.readFile('/breaker.json', (err, content) => {
     //     if (err) return console.log('Error loading breaker file:', err);
